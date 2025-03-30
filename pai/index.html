@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cristiano - Motorista Profissional</title>
+    <style>
+        /* Reset básico para margens, paddings e fonte */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Estilização do corpo da página */
+        body {
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fundo animado com gradiente */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #000, #004d00);
+            animation: bgShift 20s infinite linear;
+        }
+
+        /* Animação do fundo */
+        @keyframes bgShift {
+            0% { background-position: 0 0; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0 0; }
+        }
+
+        /* Cabeçalho */
+        header {
+            background: rgba(0, 204, 0, 0.15);
+            padding: 4rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Logo no cabeçalho */
+        header img {
+            max-width: 500px; /* Aumentado o tamanho do logo */
+            filter: drop-shadow(0 4px 8px rgba(0, 204, 0, 0.5)); /* Sombra verde */
+            transition: transform 0.3s ease;
+        }
+
+        header img:hover {
+            transform: scale(1.05); /* Leve aumento ao passar o mouse */
+        }
+
+        /* Título do cabeçalho */
+        header h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: slideIn 1.5s ease-out;
+            margin-bottom: 0.5rem; /* Reduzido o espaço abaixo do h1 */
+        }
+
+        /* Subtítulo do cabeçalho */
+        header p {
+            font-size: 1.2rem;
+            animation: fadeIn 2s ease-out;
+            margin-top: 0; /* Removido o espaço acima do parágrafo */
+        }
+
+        /* Contêiner principal */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Títulos das seções */
+        h2 {
+            color: #00cc00;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* Animação de pulsação */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Animação de entrada deslizante */
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Animação de fade-in */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Grid dos serviços */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Cards de serviço */
+        .service-card {
+            background: #fff;
+            color: #000;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 204, 0, 0.3);
+            transition: all 0.7s ease;
+        }
+
+        .service-card:hover::before {
+            top: -100%;
+            left: 0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card h3 {
+            color: #00cc00;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Seção "Sobre" */
+        .about {
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Carrossel à esquerda, texto à direita */
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            background: rgba(0, 204, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Carrossel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .carousel-images {
+            display: flex;
+            width: 300%; /* 3 imagens */
+            height: 100%;
+            animation: slideCarousel 9s infinite ease-in-out;
+        }
+
+        .carousel-images div {
+            width: 33.33%;
+            height: 100%;
+            background: no-repeat center/cover;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes slideCarousel {
+            0% { transform: translateX(0); }
+            33% { transform: translateX(-33.33%); }
+            66% { transform: translateX(-66.66%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Texto da seção "Sobre" */
+        .about-text {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        .about-text strong {
+            color: #00cc00;
+        }
+
+        .about-text em {
+            font-style: italic;
+            color: #fff;
+        }
+
+        /* Seção "Galeria" */
+        .gallery {
+            margin: 4rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-photo {
+            height: 300px;
+            background: no-repeat center/cover;
+            border-radius: 10px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .gallery-photo:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(0, 204, 0, 0.7);
+        }
+
+        /* Seção "Contato" */
+        .contact {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(0, 204, 0, 0.15);
+            border-radius: 15px;
+            margin-bottom: 4rem;
+        }
+
+        .contact a {
+            color: #00cc00;
+            font-size: 1.3rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .contact a:hover {
+            color: #fff;
+        }
+
+        /* Rodapé */
+        footer {
+            background: #00cc00;
+            color: #000;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header { padding: 3rem 1rem; }
+            header img { max-width: 200px; }
+            header h1 { font-size: 2rem; }
+            header p { font-size: 1rem; }
+            h2 { font-size: 1.8rem; }
+            .services-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .about-content { grid-template-columns: 1fr; }
+            .carousel { max-width: 100%; height: 300px; }
+            .gallery-photo { height: 250px; }
+            .contact { padding: 2rem 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem; }
+            header img { max-width: 150px; }
+            .service-card { padding: 1.5rem; }
+            .service-card h3 { font-size: 1.4rem; }
+            .contact a { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fundo animado -->
+    <div class="bg-animation"></div>
+    
+    <!-- Cabeçalho -->
+    <header>
+        <img src="img/logo.png" alt="Logo">
+        <h1>Cristiano - Motorista Profissional</h1>
+        <p>Olá! Transporte de qualidade e segurança para qualquer destino</p>
+    </header>
+
+    <!-- Contêiner principal -->
+    <div class="container">
+        <!-- Seção de serviços -->
+        <section class="services">
+            <h2>Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Uber e Corridas</h3>
+                    <p>Viagens rápidas e confortáveis, sempre com segurança.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Fretes e Mudanças</h3>
+                    <p>Transporte de cargas com carro, moto ou caminhão.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Viagens Longas</h3>
+                    <p>Conforto e pontualidade em qualquer distância.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção "Sobre Mim" com Carrossel -->
+        <section class="about">
+            <h2>Sobre Mim</h2>
+            <div class="about-content">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <div style="background-image: url('img/img1.jpeg');"></div>
+                        <div style="background-image: url('img/img2.jpeg');"></div>
+                        <div style="background-image: url('img/img3.jpeg');"></div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>Olá! Eu sou <strong>Cristiano</strong>, um motorista profissional apaixonado por dirigir e comprometido em oferecer o melhor serviço possível. Com habilitações <strong>A, B e C</strong>, acumulo anos de experiência em <em>Uber</em>, fretes, mudanças e viagens longas. Minha missão é garantir <strong>segurança, conforto e pontualidade</strong> em cada trajeto, seja ele curto ou uma aventura pelo Brasil.</p>
+                    <p>Adoro conhecer novas pessoas, explorar estradas e fazer do seu transporte uma experiência tranquila e confiável. Vamos juntos para o próximo destino?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção "Galeria" -->
+        <section class="gallery">
+            <h2>Galeria</h2>
+            <div class="gallery-grid">
+                <div class="gallery-photo" style="background-image: url('img/img1.jpeg');"></div>
+                <div class="gallery-photo" style="background-image: url('img/img2.jpeg');"></div>
+                <div class="gallery-photo" style="background-image: url('img/img3.jpeg');"></div>
+                <div class="gallery-photo" style="background-image: url('img/logo1.jpg');"></div>
+            </div>
+        </section>
+
+        <!-- Seção "Contato" -->
+        <section class="contact">
+            <h2>Contato</h2>
+            <p>📞 <a href="tel:+5521972928336">+55 (21) 97292-8336</a> (WhatsApp)</p>
+            <p>📞 <a href="tel:+5521965537990">+55 (21) 96553-7990</a> (WhatsApp)</p>
+            <p>📧 <a href="mailto:siqueiracristiano746@gmail.com">siqueiracristiano746@gmail.com</a></p>
+        </section>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 Cristiano - Motorista Profissional | Feito com dedicação</p>
+    </footer>
+
+    <script>
+        /* Animação ao rolar a página */
+        const elements = document.querySelectorAll('.services, .about, .gallery, .contact');
+        window.addEventListener('scroll', () => {
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        /* Configuração inicial das seções */
+        elements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 0.9s ease-out';
+        });
+    </script>
+</body>
+</html>
