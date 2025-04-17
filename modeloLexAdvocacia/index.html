@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LexAdvocacia - Soluções Jurídicas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1b263b;
+      --accent: #d4a017;
+      --light: #ffffff;
+      --neutral: #415a77;
+      --text-dark: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--text-dark);
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--primary);
+      padding: 1.2rem 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    nav a {
+      color: var(--light);
+      text-decoration: none;
+      margin: 0 1.5rem;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(rgba(27, 38, 59, 0.8), rgba(27, 38, 59, 0.8)), url('https://via.placeholder.com/1920x1080?text=Imagem+Advocacia');
+      background-size: cover;
+      background-position: center;
+      color: var(--light);
+      padding: 5rem 10%;
+    }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-content .cta-btn {
+      background: var(--accent);
+      color: var(--light);
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .hero-content .cta-btn:hover {
+      background: var(--primary);
+      transform: scale(1.05);
+    }
+
+    /* Areas Section */
+    .areas {
+      padding: 5rem 10%;
+      background: var(--light);
+      text-align: center;
+    }
+
+    .areas h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 3rem;
+    }
+
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .area-card {
+      background: var(--neutral);
+      color: var(--light);
+      padding: 2rem;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .area-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .area-card svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .area-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .area-card p {
+      font-size: 1rem;
+    }
+
+    /* About Section */
+    .about {
+      padding: 5rem 10%;
+      background: var(--primary);
+      color: var(--light);
+      text-align: center;
+    }
+
+    .about h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 5rem 10%;
+      background: var(--light);
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+
+    .contact form {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .contact input,
+    .contact textarea {
+      padding: 1rem;
+      border: 1px solid var(--neutral);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact input:focus,
+    .contact textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(212, 160, 23, 0.3);
+      outline: none;
+    }
+
+    .contact button {
+      background: var(--accent);
+      color: var(--light);
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact button:hover {
+      background: var(--primary);
+      transform: scale(1.03);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: var(--light);
+      padding: 3rem 10%;
+      text-align: center;
+    }
+
+    footer .socials a {
+      color: var(--accent);
+      margin: 0 1rem;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    footer .socials a:hover {
+      color: var(--light);
+    }
+
+    footer p {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 3rem 5%;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 5%;
+      }
+
+      nav a {
+        margin: 0 0.5rem;
+      }
+
+      .areas-grid,
+      .contact form {
+        padding: 0 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">LexAdvocacia</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#areas">Áreas de Atuação</a>
+      <a href="#about">Sobre</a>
+      <a href="#contact">Contato</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Excelência em Soluções Jurídicas</h1>
+      <p>Defendemos seus interesses com competência, ética e compromisso. Conte com nossa expertise para resultados sólidos.</p>
+      <a href="#contact" class="cta-btn">Agendar Consulta</a>
+    </div>
+  </section>
+
+  <!-- Areas Section -->
+  <section id="areas" class="areas">
+    <h2>Áreas de Atuação</h2>
+    <div class="areas-grid">
+      <div class="area-card">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+        <h3>Direito Empresarial</h3>
+        <p>Assessoria completa para contratos, fusões e compliance.</p>
+      </div>
+      <div class="area-card">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <h3>Direito Trabalhista</h3>
+        <p>Defesa de empregadores e empregados em litígios trabalhistas.</p>
+      </div>
+      <div class="area-card">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92c-.5.51-.86.97-1.04 1.69-.08.32-.13.68-.13 1.14h-2v-.5c0-.46.08-.9.22-1.31.2-.58.53-1.1.95-1.52l1.24-1.26c.46-.44.68-1.1.55-1.8-.13-.72-.69-1.33-1.39-1.53-1.11-.31-2.14.32-2.47 1.27-.12.37-.43.65-.82.65h-.3c-.38 0-.7-.28-.83-.65-.33-.97-.15-2.14.63-2.93 1.23-1.23 3.16-1.34 4.49-.27 1.33 1.07 1.67 2.86.85 4.3z"/></svg>
+        <h3>Direito Civil</h3>
+        <p>Soluções para disputas contratuais e responsabilidade civil.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>Sobre a LexAdvocacia</h2>
+    <p>Com mais de 15 anos de experiência, a LexAdvocacia é referência em soluções jurídicas personalizadas. Nossa equipe combina expertise técnica e dedicação para oferecer resultados que superam expectativas, sempre com ética e transparência.</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Entre em Contato</h2>
+    <form>
+      <input type="text" placeholder="Nome" required>
+      <input type="email" placeholder="E-mail" required>
+      <input type="tel" placeholder="Telefone" required>
+      <textarea placeholder="Descreva seu caso" rows="6" required></textarea>
+      <button type="submit">Enviar Mensagem</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="socials">
+      <a href="#">LinkedIn</a>
+      <a href="#">WhatsApp</a>
+      <a href="#">E-mail</a>
+    </div>
+    <p>© 2025 LexAdvocacia. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

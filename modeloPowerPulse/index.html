@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerPulse Gym - Sua Força, Nosso Pulso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1c2526;
+      --accent: #ff073a;
+      --light: #f0f8ff;
+      --gold: #ffd700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--primary);
+      color: var(--light);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Partículas de Fundo */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--accent);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      animation: spark 3s infinite ease-in-out;
+      opacity: 0;
+    }
+
+    .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { top: 40%; left: 30%; animation-delay: 0.5s; }
+    .particle:nth-child(3) { top: 60%; left: 50%; animation-delay: 1s; }
+    .particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 1.5s; }
+    .particle:nth-child(5) { top: 30%; left: 90%; animation-delay: 2s; }
+
+    @keyframes spark {
+      0% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0); }
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      padding: 1rem 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo i {
+      color: var(--gold);
+      font-size: 2rem;
+      animation: spin 5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    nav a {
+      color: var(--light);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 10%;
+      background: url('https://via.placeholder.com/1920x1080?text=Atleta+Treinando') no-repeat center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: var(--accent);
+      text-shadow: 0 0 15px var(--accent);
+      animation: zoomIn 1s ease-in;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .hero .cta-btn {
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      color: var(--primary);
+      padding: 1rem 3rem;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .hero .cta-btn:hover {
+      box-shadow: 0 0 20px var(--accent);
+      transform: scale(1.05);
+    }
+
+    @keyframes zoomIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 7, 58, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 7, 58, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 7, 58, 0); }
+    }
+
+    /* Services Section */
+    .services {
+      padding: 5rem 10%;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .services h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: scale(1.05);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+
+    .service-card i {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      font-size: 1rem;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-card:hover::before {
+      opacity: 0.2;
+    }
+
+    /* About Section */
+    .about {
+      padding: 5rem 10%;
+      background: url('https://via.placeholder.com/1920x600?text=Academia') no-repeat center/cover;
+      position: relative;
+      text-align: center;
+      color: var(--light);
+    }
+
+    .about::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .about-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .about p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    /* Benefits Section */
+    .benefits {
+      padding: 5rem 10%;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .benefits h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .benefits-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 400px;
+      animation: slideIn 0.8s ease-in;
+    }
+
+    .benefit-item i {
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    .benefit-item p {
+      font-size: 1.1rem;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 5rem 10%;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .contact input,
+    .contact textarea {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      font-size: 1rem;
+      color: var(--light);
+      transition: all 0.3s ease;
+    }
+
+    .contact input:focus,
+    .contact textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+      outline: none;
+    }
+
+    .contact button {
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      color: var(--primary);
+      padding: 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .contact button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      padding: 2rem 10%;
+      text-align: center;
+      color: var(--light);
+    }
+
+    footer .socials a {
+      color: var(--accent);
+      margin: 0 1rem;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    footer .socials a:hover {
+      color: var(--gold);
+    }
+
+    footer p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2rem 5%;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav a {
+        margin: 0 0.5rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .benefits-list {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Partículas de Fundo -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <i class="fas fa-dumbbell"></i>
+      PowerPulse Gym
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Serviços</a>
+      <a href="#about">Sobre</a>
+      <a href="#contact">Contato</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Desperte Sua Força</h1>
+      <p>Junte-se à PowerPulse Gym e transforme seu corpo com treinos personalizados!</p>
+      <a href="#contact" class="cta-btn">Teste Grátis</a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <h2>Nossos Serviços</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="https://via.placeholder.com/300x150?text=Musculação" alt="Musculação">
+        <i class="fas fa-dumbbell"></i>
+        <h3>Musculação</h3>
+        <p>Equipamentos de ponta para maximizar seus ganhos.</p>
+      </div>
+      <div class="service-card">
+        <img src="https://via.placeholder.com/300x150?text=Cardio" alt="Cardio">
+        <i class="fas fa-heartbeat"></i>
+        <h3>Cardio</h3>
+        <p>Treinos intensos para melhorar sua resistência.</p>
+      </div>
+      <div class="service-card">
+        <img src="https://via.placeholder.com/300x150?text=Aulas" alt="Aulas">
+        <i class="fas fa-running"></i>
+        <h3>Aulas Coletivas</h3>
+        <p>Zumba, spinning e mais para manter a motivação.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="about-content">
+      <h2>Sobre a PowerPulse</h2>
+      <p>Na PowerPulse Gym, acreditamos que cada treino é um passo rumo à melhor versão de você. Com treinadores experientes e um ambiente energAGO, estamos aqui para impulsionar seus resultados!</p>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section id="benefits" class="benefits">
+    <h2>Por que Escolher a PowerPulse?</h2>
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <i class="fas fa-check-circle"></i>
+        <p>Treinadores certificados para orientação personalizada.</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-check-circle"></i>
+        <p>Ambiente moderno com equipamentos de última geração.</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-check-circle"></i>
+        <p>Planos flexíveis que cabem no seu bolso.</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-check-circle"></i>
+        <p>Comunidade vibrante para manter você motivado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Teste Grátis Hoje!</h2>
+    <form>
+      <input type="text" placeholder="Nome" required>
+      <input type="email" placeholder="E-mail" required>
+      <input type="tel" placeholder="Telefone" required>
+      <textarea placeholder="Conte-nos seus objetivos!" rows="4" required></textarea>
+      <button type="submit">Agendar Teste</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="socials">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <p>© 2025 PowerPulse Gym. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

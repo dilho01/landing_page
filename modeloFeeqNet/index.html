@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeeqNet - Internet Corporativa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #0a0f2c;
+      color: white;
+    }
+
+    header {
+      background: #0f172a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #00d4ff;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hero {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1629909614063-5fb5c7731f14?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #00d4ff;
+      text-shadow: 1px 1px 5px black;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      color: #f1f1f1;
+    }
+
+    .hero button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #00d4ff;
+      color: #0a0f2c;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .hero button:hover {
+      background-color: #00b4d8;
+    }
+
+    .benefits, .plans, .cta {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .benefits h2, .plans h2, .cta h2 {
+      color: #00d4ff;
+      margin-bottom: 2rem;
+    }
+
+    .benefits .cards, .plans .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 280px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .cta button {
+      background-color: #00d4ff;
+      color: #0a0f2c;
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #0f172a;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .benefits .cards, .plans .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">FeeqNet</div>
+    <nav>
+      <a href="#planos">Planos</a>
+      <a href="#beneficios">Vantagens</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Conectamos sua empresa com a internet do futuro</h1>
+    <p>Alta velocidade, estabilidade e suporte 24h para manter sua empresa sempre online.</p>
+    <button onclick="solicitarProposta()">Solicitar Proposta</button>
+  </section>
+
+  <section class="benefits" id="beneficios">
+    <h2>Por que escolher a FeeqNet?</h2>
+    <div class="cards">
+      <div class="card">💡 Alta Velocidade e Estabilidade</div>
+      <div class="card">🔐 Segurança de Dados</div>
+      <div class="card">🛠️ Suporte Técnico 24/7</div>
+      <div class="card">📡 Infraestrutura de Ponta</div>
+    </div>
+  </section>
+
+  <section class="plans" id="planos">
+    <h2>Planos Corporativos</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Business 200Mb</h3>
+        <p>Ideal para pequenas empresas</p>
+        <p>R$199,99/mês</p>
+      </div>
+      <div class="card">
+        <h3>Corporate 500Mb</h3>
+        <p>Para empresas com alto tráfego</p>
+        <p>R$399,99/mês</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contato">
+    <h2>Pronto para turbinar a internet da sua empresa?</h2>
+    <button onclick="solicitarProposta()">Falar com Consultor</button>
+  </section>
+
+  <footer>
+    © 2025 FeeqNet - Todos os direitos reservados.
+  </footer>
+
+  <script>
+    function solicitarProposta() {
+      const mensagem = encodeURIComponent("Olá! Gostaria de solicitar uma proposta de internet para minha empresa.");
+      window.open(`https://wa.me/5599999999999?text=${mensagem}`, '_blank');
+    }
+  </script>
+</body>
+</html>
