@@ -1,35 +1,18 @@
-# Landing Page - [Nome do Projeto]
+# Landing Pages - Projetos de Treinamento
 
-Uma landing page moderna e responsiva construída com HTML, CSS e JavaScript. O objetivo foi criar uma interface atraente e funcional para [descreva o propósito, ex.: promover um produto fictício].
+Este repositório contém várias landing pages criadas para praticar **HTML**, **CSS** e **JavaScript**. Cada página explora diferentes layouts, estilos e interatividades para aprimorar minhas habilidades em front-end.
 
-## 🚀 Funcionalidades
-- Design responsivo para desktop e mobile.
-- Animações suaves com CSS.
-- Interatividade com JavaScript (ex.: [mencione algo, como formulário ou carrossel]).
-- Código limpo e otimizado.
+## 🚀 Projetos
+- **Landing Page 1**: Layout minimalista com design responsivo.
+- **Landing Page 2**: Página com carrossel de imagens e animações CSS.
+
 
 ## 🛠 Tecnologias
-- **HTML5**: Estrutura semântica.
-- **CSS3**: Estilização com Flexbox/Grid e animações.
-- **JavaScript**: Lógica para interações dinâmicas.
-
-## 📸 Screenshots
-[Insira imagens aqui, ex.: `<img src="./screenshots/screenshot1.png" width="600">`]
-
-## 🔗 Links
-- **Deploy**: [Insira link do deploy]
-- **Repositório**: [Link do próprio repositório]
-
-## ⚙ Como Rodar
-1. Clone o repositório: `git clone [link-do-repositorio]`
-2. Abra o arquivo `index.html` no navegador.
+- HTML5
+- CSS3 (Flexbox, Grid, animações)
+- JavaScript (DOM, eventos)
 
 ## 📝 Aprendizados
-Neste projeto, aprimorei minhas habilidades em [ex.: design responsivo, manipulação do DOM, ou otimização de performance].
+Aprimorei habilidades em design responsivo, interatividade e organização de código.
 
-## 🤝 Contribuições
-Feedbacks e sugestões são bem-vindos! Abra uma issue ou envie um pull request.
-
----
-
-Desenvolvido por [Seu Nome] | [Link do LinkedIn]
+Desenvolvido por Gabruel Teixeira | https://www.linkedin.com/in/gabriel-teixeira-dias/
