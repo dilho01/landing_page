@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELITE FITNESS | Academia Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF0000',
+                        secondary: '#000000',
+                        light: '#FFFFFF'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #FF0000;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #FF0000;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .hero-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+        .btn-primary {
+            background-color: #FF0000;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+        .btn-outline {
+            border: 2px solid #FF0000;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background-color: #FF0000;
+        }
+        .card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .pricing-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            opacity: 1; /* Corrige possível problema de opacidade */
+        }
+        .pricing-card:hover {
+            transform: scale(1.05);
+        }
+        .featured-plan {
+            border: 2px solid #FF0000;
+            position: relative;
+        }
+        .featured-plan::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 4px;
+        }
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-item img {
+            transition: all 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .count-up {
+            font-weight: 800;
+            font-size: 3rem;
+            color: #FF0000;
+        }
+        .input-field {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #FF0000;
+            background-color: rgba(255, 255, 255, 0.15);
+            outline: none;
+        }
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top: 5px solid #FF0000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            display: none;
+        }
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #FFFFFF;
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+        .hamburger span:nth-child(2) {
+            top: 8px;
+        }
+        .hamburger span:nth-child(3) {
+            top: 16px;
+        }
+        .hamburger.open span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+        .hamburger.open span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                z-index: 101;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #000000;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.5s ease;
+                z-index: 100;
+            }
+            .nav-menu.open {
+                right: 0;
+            }
+            .nav-link {
+                margin: 15px 0;
+                font-size: 24px;
+            }
+            /* Correção de espaçamento para telas menores na seção serviços */
+            #services .grid {
+                gap: 1rem;
+            }
+        }
+        /* Correções para a seção "Nossos Planos" */
+        #pricing {
+            min-height: 100vh; /* Garante altura suficiente */
+        }
+        #pricing .container {
+            z-index: 10; /* Garante que o conteúdo fique acima do fundo */
+        }
+        /* Correções para a seção "Nossos Serviços" */
+        #services .card {
+            padding: 1.5rem; /* Reduz padding interno */
+        }
+        #services .group {
+            padding: 1.5rem; /* Reduz padding do bloco com imagem e texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <header class="fixed top-0 left-0 w-full py-6 z-50 transition-all duration-300" id="header">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-4xl font-['Pacifico'] text-primary">Elite</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="nav-menu flex gap-10">
+                <a href="#home" class="nav-link text-lg font-medium">Home</a>
+                <a href="#about" class="nav-link text-lg font-medium">Sobre</a>
+                <a href="#services" class="nav-link text-lg font-medium">Serviços</a>
+                <a href="#pricing" class="nav-link text-lg font-medium">Planos</a>
+                <a href="#gallery" class="nav-link text-lg font-medium">Galeria</a>
+                <a href="#contact" class="nav-link text-lg font-medium">Contato</a>
+                <a href="#" class="ml-6 px-6 py-2 bg-primary text-white font-bold !rounded-button">Começar Agora</a>
+            </nav>
+        </div>
+    </header>
+    <section id="home" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+        <div style="background-image: url('https://readdy.ai/api/search-image?query=modern%20gym%20interior%20with%20red%20and%20black%20color%20scheme%2C%20high-end%20fitness%20equipment%2C%20dramatic%20lighting%2C%20professional%20photography%2C%20ultra-realistic%2C%20high-resolution%2C%20cinematic%20lighting&width=1920&height=1080&seq=1&orientation=landscape'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.6;"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="hero-text text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                    <span class="block">TRANSFORME SEU</span>
+                    <span class="block text-primary">CORPO E MENTE</span>
+                </h1>
+                <p class="hero-text text-xl md:text-2xl mb-10 text-gray-300">
+                    Descubra o poder da transformação em uma academia premium com equipamentos de última geração e treinadores especializados.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#pricing" class="px-8 py-4 bg-primary text-white font-bold text-lg !rounded-button btn-primary">
+                        COMEÇAR AGORA
+                    </a>
+                    <a href="#about" class="px-8 py-4 border-2 border-white text-white font-bold text-lg !rounded-button btn-outline">
+                        SAIBA MAIS
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-10 h-10 flex items-center justify-center">
+                <i class="ri-arrow-down-line ri-2x text-primary"></i>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">SOBRE <span class="text-primary">NÓS</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="about-img overflow-hidden rounded-lg">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20with%20people%20working%20out%2C%20red%20and%20black%20color%20scheme%2C%20professional%20fitness%20trainers%20helping%20clients%2C%20high-end%20fitness%20equipment%2C%20dramatic%20lighting%2C%20professional%20photography&width=800&height=600&seq=2&orientation=landscape" alt="Academia Elite Fitness" class="w-full h-auto rounded-lg transform-gpu">
+                </div>
+                <div class="about-content">
+                    <h3 class="text-3xl font-bold mb-6">Sua jornada para uma <span class="text-primary">vida melhor</span> começa aqui</h3>
+                    <p class="text-lg text-gray-300 mb-6">
+                        Fundada em 2015, a Elite Fitness nasceu com a missão de transformar vidas através do fitness. Nossa academia premium combina tecnologia de ponta, treinadores especializados e um ambiente inspirador para ajudar você a alcançar seus objetivos.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-8">
+                        Com mais de 2.000m² de área, oferecemos equipamentos de última geração, aulas exclusivas e um atendimento personalizado para garantir que cada membro tenha uma experiência única.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-medal-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Treinadores Elite</h4>
+                                <p class="text-gray-400">Certificados internacionalmente</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-24-hours-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">24/7 Aberto</h4>
+                                <p class="text-gray-400">Treine quando quiser</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-heart-pulse-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Avaliação Física</h4>
+                                <p class="text-gray-400">Monitoramento completo</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-community-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Comunidade</h4>
+                                <p class="text-gray-400">Ambiente motivador</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-16 bg-gradient-to-r from-black to-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                <div class="stat-item">
+                    <div class="count-up" data-count="10">0</div>
+                    <p class="text-xl font-medium">Anos de Experiência</p>
+                </div>
+                <div class="stat-item">
+                    <div class="count-up" data-count="5000">0</div>
+                    <p class="text-xl font-medium">Membros Ativos</p>
+                </div>
+                <div class="stat-item">
+                    <div class="count-up" data-count="25">0</div>
+                    <p class="text-xl font-medium">Treinadores Elite</p>
+                </div>
+                <div class="stat-item">
+                    <div class="count-up" data-count="40">0</div>
+                    <p class="text-xl font-medium">Aulas Semanais</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="services" class="py-12 bg-black relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://readdy.ai/api/search-image?query=modern%20gym%20interior%20with%20dramatic%20lighting%2C%20red%20and%20black%20theme%2C%20professional%20fitness%20equipment%2C%20cinematic%20atmosphere%2C%20ultra%20wide%20shot&width=1920&height=1080&seq=20&orientation=landscape')] bg-cover bg-center opacity-20"></div>
+        <div class="container mx-auto px-6 relative">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold mb-4">NOSSOS <span class="text-primary">SERVIÇOS</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                    Oferecemos uma variedade de serviços premium para ajudar você a alcançar seus objetivos fitness, independente do seu nível de condicionamento.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="hidden lg:block relative w-full h-[400px] mx-auto overflow-hidden rounded-2xl">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20fitness%20training%20session%20with%20dynamic%20movement%2C%20red%20lighting%20effects%2C%20professional%20athletes%20in%20action%2C%20dramatic%20atmosphere%2C%20cinematic%20shot&width=800&height=800&seq=32&orientation=squarish" alt="Fitness Training" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8">
+                        <h3 class="text-3xl font-bold mb-4">Treinamento Elite</h3>
+                        <p class="text-xl text-gray-300">Transforme seu corpo com nossos programas exclusivos</p>
+                    </div>
+                </div>
+                <div class="group relative flex bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-gray-900/80 transition-all duration-500">
+                    <div class="w-2/5 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=professional%20personal%20training%20session%20in%20modern%20gym%2C%20trainer%20helping%20client%20with%20weight%20lifting%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography%2C%20ultra%20realistic&width=800&height=1000&seq=21&orientation=portrait" alt="Personal Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="w-3/5 p-6">
+                        <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mb-8 transform -rotate-12 group-hover:rotate-0 transition-all duration-500">
+                            <i class="ri-user-star-line ri-2x"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-6">Personal Training</h3>
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            Treinamento individualizado com profissionais certificados para maximizar seus resultados e minimizar o risco de lesões. Programas personalizados para suas metas específicas.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-primary font-bold text-xl group-hover:translate-x-2 transition-transform duration-300">
+                            SAIBA MAIS
+                            <i class="ri-arrow-right-line ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card bg-gray-900 rounded-lg overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=high%20energy%20group%20fitness%20class%20in%20modern%20gym%2C%20people%20exercising%20together%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=400&seq=4&orientation=landscape" alt="Aulas Coletivas" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center mb-6">
+                            <i class="ri-group-line ri-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Aulas Coletivas</h3>
+                        <p class="text-gray-300 mb-6">
+                            Mais de 40 modalidades diferentes de aulas coletivas, desde HIIT e spinning até yoga e pilates, para todos os níveis.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-primary font-bold">
+                            SAIBA MAIS
+                            <i class="ri-arrow-right-line ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card bg-gray-900 rounded-lg overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=nutritionist%20consulting%20with%20client%20in%20modern%20office%2C%20healthy%20food%20samples%20on%20table%2C%20red%20and%20black%20color%20scheme%2C%20professional%20photography&width=600&height=400&seq=5&orientation=landscape" alt="Nutrição Esportiva" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center mb-6">
+                            <i class="ri-restaurant-line ri-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Nutrição Esportiva</h3>
+                        <p class="text-gray-300 mb-6">
+                            Consultoria nutricional personalizada para otimizar sua alimentação e complementar seu programa de treinamento.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-primary font-bold">
+                            SAIBA MAIS
+                            <i class="ri-arrow-right-line ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div class="card bg-gray-900 rounded-lg overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=modern%20gym%20functional%20training%20area%20with%20battle%20ropes%2C%20kettlebells%20and%20boxes%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=400&seq=6&orientation=landscape" alt="Treinamento Funcional" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center mb-6">
+                            <i class="ri-boxing-line ri-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Treinamento Funcional</h3>
+                        <p class="text-gray-300 mb-6">
+                            Área exclusiva para treinamento funcional com equipamentos de última geração para melhorar sua força e mobilidade.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-primary font-bold">
+                            SAIBA MAIS
+                            <i class="ri-arrow-right-line ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card bg-gray-900 rounded-lg overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=modern%20gym%20spa%20area%20with%20sauna%20and%20relaxation%20zone%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=400&seq=7&orientation=landscape" alt="Área de Bem-estar" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center mb-6">
+                            <i class="ri-spa-line ri-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Área de Bem-estar</h3>
+                        <p class="text-gray-300 mb-6">
+                            Sauna, hidromassagem e área de relaxamento para recuperação muscular e redução do estresse após o treino.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-primary font-bold">
+                            SAIBA MAIS
+                            <i class="ri-arrow-right-line ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card bg-gray-900 rounded-lg overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=fitness%20assessment%20with%20high-tech%20equipment%2C%20trainer%20measuring%20client%20body%20composition%2C%20red%20and%20black%20color%20scheme%2C%20professional%20photography&width=600&height=400&seq=8&orientation=landscape" alt="Avaliação Física" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center mb-6">
+                            <i class="ri-heart-pulse-line ri-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Avaliação Física</h3>
+                        <p class="text-gray-300 mb-6">
+                            Avaliação completa com tecnologia de ponta para monitorar seu progresso e ajustar seu programa de treinamento.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-primary font-bold">
+                            SAIBA MAIS
+                            <i class="ri-arrow-right-line ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-8 relative">
+        <div style="background-image: url('https://readdy.ai/api/search-image?query=fitness%20transformation%2C%20athletic%20silhouettes%20with%20dramatic%20red%20lighting%20effects%2C%20modern%20gym%20environment%2C%20cinematic%20atmosphere%2C%20professional%20photography&width=1920&height=1080&seq=33&orientation=landscape'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.4;"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/90 via-black/70 to-black/90"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">PRONTO PARA <span class="text-primary">TRANSFORMAR</span> SEU CORPO?</h2>
+                <p class="text-xl text-gray-300 mb-10">
+                    Junte-se a mais de 5.000 membros que já transformaram suas vidas com a Elite Fitness. Comece sua jornada hoje!
+                </p>
+                <a href="#pricing" class="px-10 py-5 bg-primary text-white font-bold text-xl !rounded-button btn-primary">
+                    COMECE AGORA
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="pricing" class="py-16 bg-black relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://readdy.ai/api/search-image?query=modern%20luxury%20gym%20interior%20with%20red%20accent%20lighting%2C%20premium%20equipment%2C%20dramatic%20atmosphere%2C%20cinematic%20wide%20shot&width=1920&height=1080&seq=22&orientation=landscape')] bg-cover bg-center opacity-30"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-black/80 to-black"></div>
+        <div class="container mx-auto px-6 relative">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold mb-4">NOSSOS <span class="text-primary">PLANOS</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                    Escolha o plano que melhor se adapta às suas necessidades e objetivos. Todos os planos incluem acesso às áreas comuns da academia.
+                </p>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-8 justify-center items-center lg:items-stretch max-w-7xl mx-auto">
+                <div class="pricing-card bg-gray-900/90 backdrop-blur-sm rounded-3xl overflow-hidden p-12 w-full lg:w-1/3 hover:bg-gray-900 transition-all duration-500 transform hover:-translate-y-2">
+                    <div class="text-center mb-12">
+                        <h3 class="text-3xl font-bold mb-4">BÁSICO</h3>
+                        <div class="flex justify-center items-end">
+                            <span class="text-7xl font-bold">R$99</span>
+                            <span class="text-2xl text-gray-400 ml-2">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Acesso à academia</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Horário comercial</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Área de musculação</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Área cardio</span>
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="ri-close-line mr-3"></i>
+                            <span>Aulas coletivas</span>
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="ri-close-line mr-3"></i>
+                            <span>Área de bem-estar</span>
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="ri-close-line mr-3"></i>
+                            <span>Avaliação física</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 border-2 border-primary text-center text-white font-bold !rounded-button btn-outline whitespace-nowrap">
+                        ESCOLHER PLANO
+                    </a>
+                </div>
+                <div class="pricing-card featured-plan bg-gray-900 rounded-lg overflow-hidden p-8 transform scale-105 shadow-[0_0_30px_rgba(255,0,0,0.3)]">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">PREMIUM</h3>
+                        <div class="flex justify-center items-end">
+                            <span class="text-5xl font-bold">R$199</span>
+                            <span class="text-gray-400 ml-1">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Acesso 24/7</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Área de musculação</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Área cardio</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Aulas coletivas</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Área de bem-estar</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>1 Avaliação física mensal</span>
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="ri-close-line mr-3"></i>
+                            <span>Personal trainer</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 bg-primary text-center text-white font-bold !rounded-button btn-primary whitespace-nowrap">
+                        ESCOLHER PLANO
+                    </a>
+                </div>
+                <div class="pricing-card bg-gray-900 rounded-lg overflow-hidden p-8 shadow-xl">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">VIP</h3>
+                        <div class="flex justify-center items-end">
+                            <span class="text-5xl font-bold">R$349</span>
+                            <span class="text-gray-400 ml-1">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Acesso 24/7</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Todas as áreas da academia</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Todas as aulas coletivas</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Área de bem-estar VIP</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Avaliações físicas ilimitadas</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>4 sessões de Personal/mês</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-3"></i>
+                            <span>Consultoria nutricional</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 border-2 border-primary text-center text-white font-bold !rounded-button btn-outline whitespace-nowrap">
+                        ESCOLHER PLANO
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="gallery" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">NOSSA <span class="text-primary">GALERIA</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Conheça nossas instalações de última geração e veja o ambiente onde você irá transformar seu corpo.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20weight%20training%20area%20with%20red%20and%20black%20color%20scheme%2C%20high-end%20equipment%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=10&orientation=squarish" alt="Área de Musculação" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Área de Musculação</h4>
+                    </div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20cardio%20area%20with%20treadmills%20and%20ellipticals%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=11&orientation=squarish" alt="Área Cardio" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Área Cardio</h4>
+                    </div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20group%20fitness%20studio%20with%20mirrors%20and%20equipment%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=12&orientation=squarish" alt="Estúdio de Aulas" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Estúdio de Aulas</h4>
+                    </div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20functional%20training%20area%20with%20battle%20ropes%20and%20boxes%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=13&orientation=squarish" alt="Área Funcional" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Área Funcional</h4>
+                    </div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20spa%20area%20with%20sauna%20and%20relaxation%20zone%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=14&orientation=squarish" alt="Área de Bem-estar" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Área de Bem-estar</h4>
+                    </div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20locker%20room%20with%20showers%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=15&orientation=squarish" alt="Vestiários" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Vestiários</h4>
+                    </div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20nutrition%20bar%20with%20protein%20shakes%20and%20healthy%20food%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=16&orientation=squarish" alt="Nutrition Bar" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Nutrition Bar</h4>
+                    </div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden aspect-square">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20gym%20reception%20area%20with%20stylish%20design%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=600&height=600&seq=17&orientation=squarish" alt="Recepção" class="w-full h-full object-cover">
+                    <div class="gallery-overlay flex items-end p-4">
+                        <h4 class="text-lg font-bold">Recepção</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-20 relative">
+        <div style="background-image: url('https://readdy.ai/api/search-image?query=fitness%20testimonials%2C%20diverse%20group%20of%20fit%20people%20in%20modern%20gym%2C%20red%20and%20black%20color%20scheme%2C%20dramatic%20lighting%2C%20professional%20photography&width=1920&height=1080&seq=18&orientation=landscape'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.2;"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-black/80"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">DEPOIMENTOS DE <span class="text-primary">CLIENTES</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-900/80 p-8 rounded-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "Desde que comecei a treinar na Elite Fitness, perdi 15kg e ganhei muita confiança. Os treinadores são incríveis e o ambiente é super motivador. Melhor decisão que tomei!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                            <span class="font-bold text-lg">RG</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Rafael Gomes</h4>
+                            <p class="text-gray-400">Membro há 2 anos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-900/80 p-8 rounded-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "A qualidade dos equipamentos e o profissionalismo dos treinadores são incomparáveis. Já passei por várias academias, mas a Elite Fitness é sem dúvida a melhor. Vale cada centavo!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                            <span class="font-bold text-lg">CS</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Carolina Santos</h4>
+                            <p class="text-gray-400">Membro há 1 ano</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-900/80 p-8 rounded-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "As aulas coletivas são fantásticas! Os instrutores são super motivadores e o ambiente é incrível. Consegui melhorar meu condicionamento físico e fazer novos amigos. Recomendo!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                            <span class="font-bold text-lg">MA</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Marcos Almeida</h4>
+                            <p class="text-gray-400">Membro há 8 meses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">ENTRE EM <span class="text-primary">CONTATO</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Estamos aqui para responder suas dúvidas e ajudar você a começar sua jornada de transformação.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                    <form>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block mb-2 font-medium">Nome</label>
+                                <input type="text" id="name" class="w-full p-4 bg-gray-900 rounded-lg border-none input-field" placeholder="Seu nome">
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-2 font-medium">Email</label>
+                                <input type="email" id="email" class="w-full p-4 bg-gray-900 rounded-lg border-none input-field" placeholder="Seu email">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="phone" class="block mb-2 font-medium">Telefone</label>
+                            <input type="tel" id="phone" class="w-full p-4 bg-gray-900 rounded-lg border-none input-field" placeholder="Seu telefone">
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block mb-2 font-medium">Assunto</label>
+                            <select id="subject" class="w-full p-4 bg-gray-900 rounded-lg border-none input-field pr-8 appearance-none">
+                                <option value="" selected disabled>Selecione um assunto</option>
+                                <option value="membership">Informações sobre planos</option>
+                                <option value="trial">Agendar aula experimental</option>
+                                <option value="partnership">Parcerias</option>
+                                <option value="other">Outro assunto</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block mb-2 font-medium">Mensagem</label>
+                            <textarea id="message" rows="5" class="w-full p-4 bg-gray-900 rounded-lg border-none input-field" placeholder="Sua mensagem"></textarea>
+                        </div>
+                        <button type="submit" class="px-8 py-4 bg-primary text-white font-bold !rounded-button btn-primary whitespace-nowrap">
+                            ENVIAR MENSAGEM
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold mb-6">Informações de Contato</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-map-pin-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Endereço</h4>
+                                    <p class="text-gray-300">Av. Paulista, 1000 - Bela Vista</p>
+                                    <p class="text-gray-300">São Paulo - SP, 01310-100</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-phone-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Telefone</h4>
+                                    <p class="text-gray-300">(11) 3456-7890</p>
+                                    <p class="text-gray-300">(11) 98765-4321</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-mail-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Email</h4>
+                                    <p class="text-gray-300">contato@elitefitness.com</p>
+                                    <p class="text-gray-300">suporte@elitefitness.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-time-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Horário de Funcionamento</h4>
+                                    <p class="text-gray-300">Segunda a Sexta: 06:00 - 23:00</p>
+                                    <p class="text-gray-300">Sábados: 08:00 - 20:00</p>
+                                    <p class="text-gray-300">Domingos: 08:00 - 14:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Siga-nos</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-all duration-300">
+                                <i class="ri-instagram-line ri-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-all duration-300">
+                                <i class="ri-facebook-fill ri-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-all duration-300">
+                                <i class="ri-twitter-x-line ri-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-all duration-300">
+                                <i class="ri-youtube-line ri-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="text-4xl font-['Pacifico'] text-primary mb-6 inline-block">Elite</a>
+                    <p class="text-gray-300 mb-6">
+                        Transformando vidas através do fitness desde 2015. Nossa missão é ajudar você a alcançar seus objetivos de forma saudável e sustentável.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="ri-facebook-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="ri-twitter-x-line ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="ri-youtube-line ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-6">Links Rápidos</h4>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="#home" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about" class="text-gray-300 hover:text-primary transition-colors">Sobre Nós</a>
+                        </li>
+                        <li>
+                            <a href="#services" class="text-gray-300 hover:text-primary transition-colors">Serviços</a>
+                        </li>
+                        <li>
+                            <a href="#pricing" class="text-gray-300 hover:text-primary transition-colors">Planos</a>
+                        </li>
+                        <li>
+                            <a href="#gallery" class="text-gray-300 hover:text-primary transition-colors">Galeria</a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="text-gray-300 hover:text-primary transition-colors">Contato</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-6">Serviços</h4>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors">Personal Training</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors">Aulas Coletivas</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors">Nutrição Esportiva</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors">Avaliação Física</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors">Treinamento Funcional</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors">Área de Bem-estar</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-6">Newsletter</h4>
+                    <p class="text-gray-300 mb-6">
+                        Inscreva-se para receber dicas de treino, nutrição e ofertas exclusivas.
+                    </p>
+                    <form class="mb-6">
+                        <div class="flex">
+                            <input type="email" placeholder="Seu email" class="w-full p-3 bg-gray-800 rounded-l-lg border-none input-field">
+                            <button type="submit" class="px-4 bg-primary text-white font-bold rounded-r-lg whitespace-nowrap">
+                                <i class="ri-send-plane-fill"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-300">Pagamentos:</span>
+                        <i class="ri-visa-fill ri-lg"></i>
+                        <i class="ri-mastercard-fill ri-lg"></i>
+                        <i class="ri-paypal-fill ri-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="py-6 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">
+                    © 2025 Elite Fitness. Todos os direitos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">Termos de Uso</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <a href="#" class="back-to-top">
+        <i class="ri-arrow-up-line ri-lg"></i>
+    </a>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Preloader
+            setTimeout(function() {
+                document.querySelector('.preloader').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.preloader').style.display = 'none';
+                }, 500);
+            }, 1500);
+            // Custom cursor
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: 'forwards' });
+            });
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-black', 'shadow-lg');
+                    header.classList.remove('py-6');
+                    header.classList.add('py-4');
+                } else {
+                    header.classList.remove('bg-black', 'shadow-lg');
+                    header.classList.remove('py-4');
+                    header.classList.add('py-6');
+                }
+            });
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('open');
+                navMenu.classList.toggle('open');
+            });
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (navMenu.classList.contains('open')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('open');
+                    }
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('active');
+                } else {
+                    backToTopButton.classList.remove('active');
+                }
+            });
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            // Counter animation
+            const countElements = document.querySelectorAll('.count-up');
+            function animateCounter(el) {
+                const target = parseInt(el.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / duration * 10;
+                let current = 0;
+                const timer = setInterval(function() {
+                    current += step;
+                    el.textContent = Math.floor(current);
+                    if (current >= target) {
+                        el.textContent = target;
+                        clearInterval(timer);
+                    }
+                }, 10);
+            }
+            // GSAP Animations
+            gsap.registerPlugin(ScrollTrigger);
+            // Hero animations
+            gsap.from('.hero-text', {
+                y: -100,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+            // About section animations
+            gsap.from('.about-img', {
+                scrollTrigger: {
+                    trigger: '.about-img',
+                    start: 'top 80%'
+                },
+                x: -100,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+            gsap.from('.about-content', {
+                scrollTrigger: {
+                    trigger: '.about-content',
+                    start: 'top 80%'
+                },
+                x: 100,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+            // Stats counter animation
+            ScrollTrigger.create({
+                trigger: '.stat-item',
+                start: 'top 80%',
+                onEnter: () => {
+                    countElements.forEach(animateCounter);
+                },
+                once: true
+            });
+            // Services animations
+            gsap.from('.card', {
+                scrollTrigger: {
+                    trigger: '#services',
+                    start: 'top 60%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+            // Pricing animations (comentei para teste, descomente se funcionar corretamente)
+            /*
+            gsap.from('.pricing-card', {
+                scrollTrigger: {
+                    trigger: '#pricing',
+                    start: 'top 60%'
+                },
+                y: 100,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.4,
+                ease: 'power4.out'
+            });
+            */
+            // Gallery animations
+            gsap.from('.gallery-item', {
+                scrollTrigger: {
+                    trigger: '#gallery',
+                    start: 'top 60%'
+                },
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power3.out'
+            });
+            // Contact form animations
+            gsap.from('#contact form', {
+                scrollTrigger: {
+                    trigger: '#contact',
+                    start: 'top 60%'
+                },
+                x: -50,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+            gsap.from('#contact .flex.items-start', {
+                scrollTrigger: {
+                    trigger: '#contact',
+                    start: 'top 60%'
+                },
+                x: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+        });
+    </script>
+</body>
+</html>
